@@ -414,7 +414,7 @@ module.exports = {
                 query: {
                     system_id: systemID
                 },
-                needsAuth: trueq
+                needsAuth: true
             })
         },
     },
@@ -535,9 +535,7 @@ module.exports = {
             return request({
                 subUrl: `corporations/${corporationID}/assets/names`,
                 requestType: 'post',
-                query: {
-                    item_ids: itemIDs
-                },
+                body: itemIDs,
                 needsAuth: true
             })
         }
@@ -870,7 +868,7 @@ module.exports = {
             })
 
             return request({
-                subUrl: `corporation/${corporationID}/orders`,
+                subUrl: `corporations/${corporationID}/orders`,
                 requestType: 'GET',
                 needsAuth: true
             })

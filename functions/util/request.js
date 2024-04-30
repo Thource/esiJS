@@ -2,7 +2,7 @@ const axios = require('axios')
 const { getSettings } = require('../utility')
 const throwError = require('./throwError')
 const path = require('path')
-const {version} = require('../../package.json')
+const { version } = require('../../package.json')
 const DEFAULT = `esiJS-v${version}`
 
 /**
@@ -17,7 +17,7 @@ const DEFAULT = `esiJS-v${version}`
  * 
  * needsAuth -> flag a endpoint as authed
  */
-function makeRequest ({ subUrl, body, query, requestType = 'GET', needsAuth = false}) {
+function makeRequest({ subUrl, body, query, requestType = 'GET', needsAuth = false }) {
     const { link, authToken, language, programName } = getSettings()
     const test = /\/(?=\/)(?<!https:\/)/g
     let headers = {
@@ -55,7 +55,7 @@ function makeRequest ({ subUrl, body, query, requestType = 'GET', needsAuth = fa
     }
     if (needsAuth && authToken !== '') {
         // Include both the headers and the query just in case one or the other fails
-        headers['authorization'] = `Bearer: ${authToken}`
+        headers['authorization'] = `Bearer ${authToken}`
         fullURL += `&token=${authToken}`
     }
     if (needsAuth && authToken === '') {
@@ -66,7 +66,7 @@ function makeRequest ({ subUrl, body, query, requestType = 'GET', needsAuth = fa
     fullURL = fullURL.replace(test, '')
 
     // Check for request type
-    switch(requestType.toUpperCase()) {
+    switch (requestType.toUpperCase()) {
         case 'GET': {
             request = axios.get(fullURL, {
                 headers
@@ -100,7 +100,7 @@ function makeRequest ({ subUrl, body, query, requestType = 'GET', needsAuth = fa
     // Return the promise request, pre set the 'then' and 'catch' clauses
     return request
         .then(response => {
-           let data = {
+            let data = {
                 headers: response.headers,
                 data: response.data
             }
